@@ -19,9 +19,10 @@ mvn javafx:run
 - **Create Nodes**: Double-click anywhere on the canvas or use the "New Node" button
 - **Edit Text**: Double-click on any node's text to edit it
 - **Drag & Drop**: Click and drag nodes to reposition them
+- **Collapse/Expand Nodes**: Click the − button to collapse a node and hide its content, click + to expand
 - **Connect Nodes**: Use "Connect Mode" to create relationships between nodes
 - **Delete Nodes**: Select a node and click "Delete Selected"
-- **Save/Load**: Save your mind maps to JSON files and load them later
+- **Save/Load**: Save your mind maps to JSON files and load them later (includes collapsed state)
 - **Clear All**: Remove all nodes and start fresh
 - **Visual Feedback**: Selected nodes are highlighted with a red border
 
@@ -57,6 +58,12 @@ mvn javafx:run
 ### Moving Nodes
 - Click and drag any node to move it around the canvas
 - Connections will automatically update as you move nodes
+
+### Collapsing/Expanding Nodes
+- Click the **−** button in the top-right corner of a node to collapse it
+- When collapsed, the node shows "..." and takes up less space
+- Click the **+** button to expand the node again
+- Collapsed state is preserved when saving/loading mind maps
 
 ### Connecting Nodes
 1. Click the "Connect Mode" button (it will turn green)

@@ -180,6 +180,7 @@ public class MindMapCanvas extends Pane {
                 data.x = node.getLayoutX();
                 data.y = node.getLayoutY();
                 data.color = node.getColor();
+                data.collapsed = node.isCollapsed();
                 data.connections = new ArrayList<>();
 
                 nodeDataList.add(data);
@@ -232,6 +233,11 @@ public class MindMapCanvas extends Pane {
                 node.setId(data.id);
                 node.setColor(data.color);
 
+                // Restore collapsed state
+                if (data.collapsed != null && data.collapsed) {
+                    node.setCollapsed(true);
+                }
+
                 node.setOnMouseClicked(e -> {
                     if (connectionMode) {
                         handleConnectionModeClick(node);
@@ -277,6 +283,7 @@ public class MindMapCanvas extends Pane {
         double x;
         double y;
         String color;
+        Boolean collapsed;
         List<Integer> connections;
     }
 }

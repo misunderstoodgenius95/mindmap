@@ -1,9 +1,12 @@
 package com.mindmap;
 
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,16 +17,22 @@ public class MindMapNode extends StackPane {
     private String id;
     private Rectangle background;
     private TextField textField;
+    private Button collapseButton;
+    private Text collapsedIndicator;
     private double dragStartX, dragStartY;
     private boolean selected;
+    private boolean collapsed;
     private List<MindMapNode> connectedNodes;
 
     private static final double NODE_WIDTH = 150;
     private static final double NODE_HEIGHT = 60;
+    private static final double COLLAPSED_WIDTH = 150;
+    private static final double COLLAPSED_HEIGHT = 30;
 
     public MindMapNode(double x, double y, String text) {
         this.id = UUID.randomUUID().toString();
         this.connectedNodes = new ArrayList<>();
+        this.collapsed = false;
 
         // Create background rectangle
         background = new Rectangle(NODE_WIDTH, NODE_HEIGHT);
@@ -40,7 +49,22 @@ public class MindMapNode extends StackPane {
         textField.setMaxWidth(NODE_WIDTH - 10);
         textField.setAlignment(javafx.geometry.Pos.CENTER);
 
-        getChildren().addAll(background, textField);
+        // Create collapse button
+        collapseButton = new Button("−");
+        collapseButton.setStyle("-fx-font-size: 10px; -fx-padding: 2 6 2 6; " +
+                               "-fx-background-color: #90CAF9; -fx-cursor: hand;");
+        collapseButton.setOnAction(e -> {
+            toggleCollapse();
+            e.consume();
+        });
+        StackPane.setAlignment(collapseButton, Pos.TOP_RIGHT);
+
+        // Create collapsed indicator (shown when collapsed)
+        collapsedIndicator = new Text("...");
+        collapsedIndicator.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+        collapsedIndicator.setVisible(false);
+
+        getChildren().addAll(background, textField, collapseButton, collapsedIndicator);
 
         setLayoutX(x);
         setLayoutY(y);
@@ -152,5 +176,40 @@ public class MindMapNode extends StackPane {
             (int) (color.getRed() * 255),
             (int) (color.getGreen() * 255),
             (int) (color.getBlue() * 255));
+    }
+
+    public void toggleCollapse() {
+        collapsed = !collapsed;
+        updateCollapseState();
+    }
+
+    public void setCollapsed(boolean collapsed) {
+        this.collapsed = collapsed;
+        updateCollapseState();
+    }
+
+    public boolean isCollapsed() {
+        return collapsed;
+    }
+
+    private void updateCollapseState() {
+        if (collapsed) {
+            // Collapse the node
+            background.setHeight(COLLAPSED_HEIGHT);
+            textField.setVisible(false);
+            collapsedIndicator.setVisible(true);
+            collapseButton.setText("+");
+        } else {
+            // Expand the node
+            background.setHeight(NODE_HEIGHT);
+            textField.setVisible(true);
+            collapsedIndicator.setVisible(false);
+            collapseButton.setText("−");
+        }
+
+        // Request parent to redraw connections
+        if (getParent() instanceof MindMapCanvas) {
+            ((MindMapCanvas) getParent()).redrawConnections();
+        }
     }
 }
