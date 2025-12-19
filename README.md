@@ -2,6 +2,18 @@
 
 A feature-rich mind mapping application built with JavaFX that allows you to create, edit, and visualize hierarchical information structures.
 
+## 🚀 Getting Started
+
+**Seeing "JavaFX runtime components are missing" error?**
+→ **[Read QUICKSTART.md](QUICKSTART.md)** for quick solutions
+→ **[Read SETUP.md](SETUP.md)** for detailed setup instructions
+
+**Quick fix (with internet):**
+```bash
+mvn clean install
+mvn javafx:run
+```
+
 ## Features
 
 - **Create Nodes**: Double-click anywhere on the canvas or use the "New Node" button
@@ -15,8 +27,9 @@ A feature-rich mind mapping application built with JavaFX that allows you to cre
 
 ## Requirements
 
-- Java 11 or higher
+- Java 21 (recommended) or Java 11+
 - Maven 3.6 or higher
+- JavaFX 21 (automatically downloaded by Maven, or install manually - see SETUP.md)
 
 ## Building the Project
 
