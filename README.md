@@ -85,6 +85,22 @@ mvn javafx:run
 2. Select a previously saved JSON file
 3. Your mind map will be restored
 
+## Vue Slideshow
+
+A Vue 3 slideshow component is also available for presenting mind map content in a slideshow format.
+
+### Running the Vue Slideshow
+
+```bash
+cd web
+npm install
+npm run dev
+```
+
+Visit `http://localhost:3000` to see the slideshow in action.
+
+See [web/README.md](web/README.md) for detailed documentation on the Vue slideshow component.
+
 ## Project Structure
 
 ```
@@ -100,6 +116,14 @@ mindmap/
 │       │           └── MindMapNode.java     # Node representation
 │       └── resources/
 │           └── styles.css                    # Application styling
+├── web/                                      # Vue slideshow application
+│   ├── src/
+│   │   ├── components/
+│   │   │   └── Slideshow.vue                # Slideshow component
+│   │   ├── App.vue                          # Main Vue app
+│   │   └── main.js                          # Vue entry point
+│   ├── index.html                           # HTML entry point
+│   └── package.json                         # Node dependencies
 └── README.md
 ```
 
